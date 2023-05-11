@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Headers from "./components/Headers";
 import StoreItems from "./components/StoreItems";
+import Cart from "./components/Cart";
 
 const productsArr = [
   {
@@ -26,9 +27,19 @@ const productsArr = [
 ];
 
 const App = () => {
+  const [isCartShown, setIsCartShown] = useState(true);
+
+  const showCart = () => {
+    setIsCartShown(true);
+  };
+  const hideCart = () => {
+    setIsCartShown(false);
+  };
+
   return (
     <>
-      <Headers />
+      <Headers showCart={showCart} />
+      {isCartShown && <Cart hideCart={hideCart} />}
       <StoreItems productsArr={productsArr} />
     </>
   );
