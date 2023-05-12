@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../cart-context/CartContext";
 import styles from "./Headers.module.css";
 
 const Headers = ({ showCart }) => {
+  const cartCtx = useContext(CartContext);
+
+  const numOfItems = cartCtx.items.length;
+
   return (
     <div className={styles.navbar}>
       <nav className={styles["nav-links"]}>
@@ -12,10 +17,13 @@ const Headers = ({ showCart }) => {
 
       <button
         type="button"
-        className={styles["cart-button"]}
+        className="btn btn-primary btn-md"
         onClick={showCart}
       >
-        Cart
+        <span className="h5">Cart</span>
+        <span className="badge rounded-pill text-bg-warning mx-3">
+          {numOfItems}
+        </span>
       </button>
     </div>
   );

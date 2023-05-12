@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
+import { formatPrice } from "../Utils/UtilityFunctions";
+import { CartContext } from "../cart-context/CartContext";
 import styles from "./StoreItems.module.css";
-import { formatPrice } from "./Utils/UtilityFunctions";
 
 const StoreItems = ({ productsArr }) => {
-  // const formatPrice = (val, currency = "INR") => {
-  //   return new Intl.NumberFormat("en-IN", {
-  //     style: "currency",
-  //     currency: currency,
-  //   }).format(val);
-  // };
+  const cartCtx = useContext(CartContext);
+
+  const addItemToCart = (e) => {
+    const itemId = e.target.parentElement.parentElement.getAttribute("id");
+
+    const selectedItem = productsArr.filter((item) => +item.id === +itemId)[0];
+
+    cartCtx.addItem(selectedItem);
+  };
 
   return (
     <div className={styles["grid-container"]}>
       {productsArr.map((prod) => (
-        <div className={styles["grid-item"]}>
+        <div id={prod.id} key={prod.id} className={styles["grid-item"]}>
+          {prod.id}
           <h2>{prod.title}</h2>
           <img src={prod.imageUrl} alt={prod.title} />
           <div>
             <h5>{formatPrice(prod.price)}</h5>
-            <button>ADD TO CART</button>
+            <button type="button" onClick={addItemToCart}>
+              ADD TO CART
+            </button>
           </div>
         </div>
       ))}
