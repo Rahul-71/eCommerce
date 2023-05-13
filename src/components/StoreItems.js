@@ -8,7 +8,6 @@ const StoreItems = ({ productsArr }) => {
 
   const addItemToCart = (e) => {
     const itemId = e.target.parentElement.parentElement.getAttribute("id");
-
     const selectedItem = productsArr.filter((item) => +item.id === +itemId)[0];
 
     cartCtx.addItem(selectedItem);
@@ -18,7 +17,6 @@ const StoreItems = ({ productsArr }) => {
     <div className={styles["grid-container"]}>
       {productsArr.map((prod) => (
         <div id={prod.id} key={prod.id} className={styles["grid-item"]}>
-          {prod.id}
           <h2>{prod.title}</h2>
           <img src={prod.imageUrl} alt={prod.title} />
           <div>
