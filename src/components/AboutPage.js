@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import { CartContext } from "../cart-context/CartContext";
+import React from "react";
 
 const AboutPage = () => {
-  // const cartCtx = useContext(CartContext);
-
   return (
-    <div>
+    <div className="container mt-5">
       <h2>About</h2>
       <p>
         Lorem ipsum carrots enhanced rebates. Excellent sayings of a man of

@@ -6,8 +6,7 @@ export const CartContext = React.createContext({
   removeItem: (id) => {},
   totalPrice: 0,
   isCartShown: false,
-  hideCart: () => {},
-  showCart: () => {},
+  toggleCartShown: () => {},
 });
 
 const defaultCartState = {
@@ -19,8 +18,7 @@ const defaultCartState = {
 const ACTIONS = {
   ADD_ITEM: "addItem",
   REMOVE_ITEM: "removeItem",
-  SHOW_CART: "showCart",
-  HIDE_CART: "hideCart",
+  TOGGLE_CART: "toggleCart",
 };
 
 const cartReducer = (state, action) => {
@@ -29,11 +27,12 @@ const cartReducer = (state, action) => {
   if (action.type === ACTIONS.ADD_ITEM) {
     const existingItem = items.findIndex((item) => item.id === action.item.id);
 
-    let updatedState = null;
+    let updatedState = state;
     if (existingItem === -1) {
-      updatedState = [...items, action.item];
+      const updatedItems = [...items, action.item];
       updatedState = {
-        items: updatedState,
+        ...state,
+        items: updatedItems,
         totalPrice:
           Number.parseInt(action.item.price) +
           Number.parseInt(state.totalPrice),
@@ -47,6 +46,7 @@ const cartReducer = (state, action) => {
   } else if (action.type === ACTIONS.REMOVE_ITEM) {
     const itemToRemoveIndx = items.findIndex((item) => +item.id === +action.id);
     const updatedState = {
+      ...state,
       items: [
         ...state.items.slice(0, itemToRemoveIndx),
         ...state.items.slice(itemToRemoveIndx + 1),
@@ -57,11 +57,8 @@ const cartReducer = (state, action) => {
     };
 
     return updatedState;
-  } else if (action.type === ACTIONS.SHOW_CART) {
-    const updatedState = { ...state, isCartShown: true };
-    return updatedState;
-  } else if (action.type === ACTIONS.HIDE_CART) {
-    const updatedState = { ...state, isCartShown: false };
+  } else if (action.type === ACTIONS.TOGGLE_CART) {
+    const updatedState = { ...state, isCartShown: !state.isCartShown };
     return updatedState;
   }
 
@@ -82,11 +79,8 @@ const CartContextProvider = ({ children }) => {
     cartActionDispatch({ type: ACTIONS.REMOVE_ITEM, id: id });
   };
 
-  const toggleShowCart = () => {
-    cartActionDispatch({ type: ACTIONS.SHOW_CART });
-  };
-  const toggleHideCart = () => {
-    cartActionDispatch({ type: ACTIONS.HIDE_CART });
+  const toggleCart = () => {
+    cartActionDispatch({ type: ACTIONS.TOGGLE_CART });
   };
 
   const cartContextValue = {
@@ -99,8 +93,7 @@ const CartContextProvider = ({ children }) => {
     },
     totalPrice: cartState.totalPrice,
     isCartShown: cartState.isCartShown,
-    hideCart: toggleHideCart,
-    showCart: toggleShowCart,
+    toggleCartShown: toggleCart,
   };
 
   return (

@@ -31,7 +31,7 @@ const Cart = () => {
         </thead>
         <tbody>
           {cartElements.map((ele) => (
-            <tr className={styles["cart-item"]}>
+            <tr key={ele.id} className={styles["cart-item"]}>
               <td className={styles["cart-image"]}>
                 <img src={ele.imageUrl} alt={ele.title} />
                 <p>{ele.title}</p>
@@ -60,7 +60,7 @@ const Cart = () => {
               <div className="d-flex mx-4 justify-content-between ">
                 <button
                   className="btn btn-danger btn-lg"
-                  onClick={cartCtx.hideCart}
+                  onClick={() => cartCtx.toggleCartShown()}
                 >
                   Close
                 </button>
