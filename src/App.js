@@ -5,13 +5,14 @@ import CartContextProvider from "./cart-context/CartContext";
 import AboutPage from "./components/AboutPage";
 import Headers from "./components/Headers";
 import Stores from "./components/Stores";
+import Home from "./components/Home";
 
 const routerDefination = createBrowserRouter([
   {
     path: "/",
     element: <Headers />,
     children: [
-      { path: "/", element: <Stores /> },
+      { path: "/", element: <Home /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/store", element: <Stores /> },
     ],
