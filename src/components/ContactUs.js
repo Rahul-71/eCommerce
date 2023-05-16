@@ -14,11 +14,9 @@ const ContactUs = () => {
     e.preventDefault();
 
     if (phoneValidation) {
-      console.log("phoneValidation is failed");
       return;
     }
 
-    // console.log(`name: ${name} email: ${email} phone: ${phone}`);
     const contactDetail = {
       name: name,
       mailId: email,
@@ -35,7 +33,7 @@ const ContactUs = () => {
 
     const data = await response.json();
 
-    console.log("logged data: " + JSON.stringify(data));
+    // console.log("contact successfully logged data: " + JSON.stringify(data));
 
     setEmail("");
     setName("");

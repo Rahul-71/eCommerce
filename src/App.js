@@ -7,6 +7,7 @@ import Headers from "./components/Headers";
 import Stores from "./components/Stores";
 import Home from "./components/Home";
 import ContactUs from "./components/ContactUs";
+import ProductDetails from "./components/ProductDetails";
 
 const routerDefination = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const routerDefination = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/store", element: <Stores /> },
+      { path: "/products/:productId", element: <ProductDetails /> },
       { path: "/contact", element: <ContactUs /> },
     ],
   },
