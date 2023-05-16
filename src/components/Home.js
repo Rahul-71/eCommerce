@@ -6,7 +6,9 @@ const Home = () => {
     <div className="d-flex justify-content-center bg-secondary">
       <div className="text-center">
         <h4 className="border border-2 p-2">Get Our Latest Album</h4>
-        <Icons.Play className="h1 mt-3" />
+        <button className="bg-secondary border-0">
+          <Icons.Play className="h1 mt-3" />
+        </button>
       </div>
     </div>
   );

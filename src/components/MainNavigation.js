@@ -38,6 +38,16 @@ const MainNavigation = () => {
             About
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink
+            to="/contact"
+            className={`nav-link ${(isActive) =>
+              isActive ? "active" : undefined}`}
+            onClick={!cartCtx.isCartShown ? cartCtx.toggleCartShown : undefined}
+          >
+            Contact Us
+          </NavLink>
+        </li>
       </ul>
       {!cartCtx.isCartShown && (
         <button
