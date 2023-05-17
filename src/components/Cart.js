@@ -70,7 +70,9 @@ const Cart = () => {
                 >
                   Close
                 </button>
-                <button className="btn btn-success btn-md">Proceed</button>
+                <button className="btn btn-success btn-md" disabled>
+                  Proceed
+                </button>
                 <span className="h6">
                   Total Price: {formatPrice(cartCtx.totalPrice)}
                 </span>
