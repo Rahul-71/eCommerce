@@ -7,7 +7,7 @@ const Headers = () => {
     <>
       <MainNavigation />
       <div className="container-fluid p-5 text-center bg-secondary">
-        <h1 className="fs-1 text-white">The Generic</h1>
+        <h1 className="fs-1 text-white">Insta Mall</h1>
       </div>
       <Outlet />
     </>

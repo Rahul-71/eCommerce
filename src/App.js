@@ -3,11 +3,11 @@ import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import CartContextProvider from "./cart-context/CartContext";
 import AboutPage from "./components/AboutPage";
-import Headers from "./components/Headers";
-import Stores from "./components/Stores";
-import Home from "./components/Home";
 import ContactUs from "./components/ContactUs";
+import Headers from "./components/Headers";
+import Home from "./components/Home";
 import ProductDetails from "./components/ProductDetails";
+import Stores from "./components/Stores";
 
 const routerDefination = createBrowserRouter([
   {

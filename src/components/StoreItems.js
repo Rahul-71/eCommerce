@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
-import { formatPrice } from "../Utils/UtilityFunctions";
+import { NavLink } from "react-router-dom";
+import { formatPrice, getNthParent } from "../Utils/UtilityFunctions";
 import { CartContext } from "../cart-context/CartContext";
-import { Link, NavLink } from "react-router-dom";
 
 const StoreItems = ({ productsArr }) => {
   const cartCtx = useContext(CartContext);
 
   const addItemToCart = (e) => {
-    const itemId =
-      e.target.parentElement.parentElement.parentElement.getAttribute("id");
+    const itemId = getNthParent(e.target, 3).getAttribute("id");
+    console.log("inside addItemToCart : " + itemId);
     const selectedItem = productsArr.filter((item) => +item.id === +itemId)[0];
     console.log("selectedItem", selectedItem);
     cartCtx.addItem(selectedItem);
@@ -20,37 +20,36 @@ const StoreItems = ({ productsArr }) => {
         {/* now for each col */}
         {productsArr.map((prod) => (
           <div id={prod.id} key={prod.id} className="col-lg-4 col-md-6">
-            <NavLink
-              to={`/products/${prod.id}`}
-              style={{ textDecoration: "none" }}
-              className={`nav-link ${(isActive) =>
-                isActive ? "active" : undefined}`}
-            >
-              <div className="card  border-0" style={{ width: "12rem" }}>
+            <div className="card  border-0" style={{ width: "12rem" }}>
+              <NavLink
+                to={`/products/${prod.id}`}
+                style={{ textDecoration: "none" }}
+                className={`nav-link ${(isActive) =>
+                  isActive ? "active" : undefined}`}
+              >
                 <img
                   src={prod.image}
                   alt={prod.title}
                   className="card-img-top"
                   style={{ width: "200px", height: "200px" }}
                 />
-                <section className="card-body">
-                  <h6>{prod.title}</h6>
-                  <p>{formatPrice(prod.price, "USD")}</p>
-                  <button
-                    type="button"
-                    className="btn btn-md btn-primary"
-                    onClick={addItemToCart}
-                  >
-                    ADD TO CART
-                  </button>
-                </section>
-              </div>
-            </NavLink>
+              </NavLink>
+              <section className="card-body">
+                <h6>{prod.title}</h6>
+                <p>{formatPrice(prod.price, "USD")}</p>
+                <button
+                  type="button"
+                  className="btn btn-md btn-primary"
+                  onClick={addItemToCart}
+                >
+                  ADD TO CART
+                </button>
+              </section>
+            </div>
           </div>
         ))}
       </div>
     </div>
-    // </div>
   );
 };
 

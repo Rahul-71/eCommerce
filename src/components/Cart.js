@@ -14,6 +14,7 @@ const Cart = () => {
 
   return (
     <div
+      id="cart-container"
       className={`${
         styles.cart
       } container w-25 bg-secondary bg-gradient top-0 mt-5 overflow-auto rounded-5 fade ${

@@ -5,26 +5,31 @@ const AboutPage = () => {
     <div className="container mt-5">
       <h2>About</h2>
       <p>
-        Lorem ipsum carrots enhanced rebates. Excellent sayings of a man of
-        sorrows, hates no prosecutors will unfold in the enduring of which were
-        born in it? Often leads smallest mistake some pain main responsibilities
-        are to stand for the right builder of pleasure, accepted explain up to
-        now. , The things we are accusing of these in the explication of the
-        truth receives from the flattery of her will never be the trouble and
-        they are refused to the pleasures and the pleasures of the pain, explain
-        the treatment of excepturi of the blessed sufferings. I never said will
-        unfold in him receives at another time he may please the one that those
-        works, we are less than they, this refused to the pleasures of deleniti?
-        Those are! Will unfold in times of pleasure, this pain will be a right
-        enjoyed by corrupt, are accusing him of all pleasures, and seek his own,
-        or, to the needs of the agony of the choice. We hate the fellow. Lorem
-        ipsum dolor, sit amet consectetur rebates. The distinction, that arise
-        from or to. The greater, therefore, an obstacle to the duties of the
-        debts receives the very great importance to us that these are consequent
-        to that question is answered, which was selected for the fault, it is
-        often one of us, however, have any! Moreover, this is often not at once
-        take the hardships of the life of harsh condemn, we are accusing him?
-        Him whom something large cisterns.
+        Insta Mall is a leading online shopping platform that connects you with
+        your favorite brands and products. Whether you are looking for fashion,
+        beauty, electronics, home decor, or anything else, you can find it on
+        Insta Mall with just a few clicks. You can also discover new
+        collections, trends, and deals every day on our app and website.
+        <br />
+        <br />
+        Insta Mall is more than just a shopping site. It is a community of
+        passionate shoppers who love to share their style, opinions, and
+        feedback. You can follow other shoppers, join groups, and chat with them
+        on Insta Mall. You can also create your own shop and showcase your
+        products to millions of potential customers.
+        <br />
+        <br />
+        Insta Mall is committed to providing you with a safe, secure, and
+        convenient shopping experience. We offer fast delivery, easy returns,
+        and multiple payment options. We also have a dedicated customer support
+        team that is always ready to help you with any questions or issues.
+        <br />
+        <br />
+        Insta Mall is your ultimate destination for online shopping. Download
+        our app or visit our website today and start exploring the world of
+        Insta Mall.
+        <br />
+        <br />
       </p>
     </div>
   );
