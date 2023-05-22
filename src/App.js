@@ -11,6 +11,7 @@ import LoginForm from "./components/LoginForm";
 import NotFound from "./components/NotFound";
 import ProductDetails from "./components/ProductDetails";
 import Stores from "./components/Stores";
+import PrivateRoute from "./Utils/PrivateRoute";
 
 const routerDefination = createBrowserRouter([
   {
@@ -19,8 +20,11 @@ const routerDefination = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <AboutPage /> },
-      { path: "/store", element: <Stores /> },
-      { path: "/products/:productId", element: <ProductDetails /> },
+      { path: "/store", element: <PrivateRoute element={Stores} /> },
+      {
+        path: "/products/:productId",
+        element: <PrivateRoute element={ProductDetails} />,
+      },
       { path: "/contact", element: <ContactUs /> },
       { path: "/login", element: <LoginForm /> },
       { path: "*", element: <NotFound /> },
