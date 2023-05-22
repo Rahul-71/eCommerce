@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import ProductDetails from "./components/ProductDetails";
 import Stores from "./components/Stores";
 import NotFound from "./components/NotFound";
+import LoginForm from "./components/LoginForm";
 
 const routerDefination = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ const routerDefination = createBrowserRouter([
       { path: "/store", element: <Stores /> },
       { path: "/products/:productId", element: <ProductDetails /> },
       { path: "/contact", element: <ContactUs /> },
-      { path: ".*", element: <NotFound /> },
+      { path: "/login", element: <LoginForm /> },
+      { path: "*", element: <NotFound /> },
     ],
     errorElement: <NotFound />,
   },
