@@ -1,9 +1,19 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CartContext } from "../cart-context/CartContext";
+import { AuthContext } from "../cart-context/AuthContext";
 
 const MainNavigation = () => {
   const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    if (window.confirm("Are you sure you want to log out?")) {
+      authCtx.logout();
+      navigate("/");
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand-md bg-secondary fixed-top px-5">
@@ -22,28 +32,30 @@ const MainNavigation = () => {
           <li className="nav-item">
             <NavLink
               to="/"
+              end
               className={`nav-link ${(isActive) =>
                 isActive ? "active" : undefined}`}
               onClick={
                 !cartCtx.isCartShown ? cartCtx.toggleCartShown : undefined
               }
-              end
             >
               Home
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink
-              to="/store"
-              className={`nav-link ${(isActive) =>
-                isActive ? "active" : undefined}`}
-              onClick={
-                cartCtx.isCartShown ? cartCtx.toggleCartShown : undefined
-              }
-            >
-              Store{" "}
-            </NavLink>
-          </li>
+          {authCtx.isLoggedIn && (
+            <li className="nav-item">
+              <NavLink
+                to="/store"
+                className={`nav-link ${(isActive) =>
+                  isActive ? "active" : undefined}`}
+                onClick={
+                  cartCtx.isCartShown ? cartCtx.toggleCartShown : undefined
+                }
+              >
+                Store{" "}
+              </NavLink>
+            </li>
+          )}
           <li className="nav-item">
             <NavLink
               to="/about"
@@ -68,18 +80,28 @@ const MainNavigation = () => {
               Contact Us
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink
-              to="/login"
-              className={`nav-link ${(isActive) =>
-                isActive ? "active" : undefined}`}
-            >
-              Login
-            </NavLink>
-          </li>
+          {!authCtx.isLoggedIn ? (
+            <li className="nav-item align-items-center justify-content-center">
+              <NavLink
+                to="/login"
+                className={`nav-link ${(isActive) =>
+                  isActive ? "active" : undefined}`}
+              >
+                Login
+              </NavLink>
+            </li>
+          ) : undefined}
         </ul>
       </div>
-      {!cartCtx.isCartShown && (
+      {authCtx.isLoggedIn && (
+        <button
+          className="btn btn-danger mx-2 rounded-pill btn-md"
+          onClick={logoutHandler}
+        >
+          Logout
+        </button>
+      )}
+      {authCtx.isLoggedIn && !cartCtx.isCartShown && (
         <button
           type="button"
           className="btn btn-primary btn-md rounded-pill align-items-center"

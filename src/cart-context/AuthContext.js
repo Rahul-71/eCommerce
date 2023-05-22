@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { useNavigate } from "react-router";
 
 export const AuthContext = createContext({
   token: "",
@@ -9,6 +10,7 @@ export const AuthContext = createContext({
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState("");
+  //   const navigate = useNavigate();
 
   const userLoggedIn = !!token;
 
@@ -17,6 +19,7 @@ const AuthContextProvider = (props) => {
   };
 
   const logoutHandler = () => {
+    // navigate("/", { replace: true });
     setToken(null);
   };
 

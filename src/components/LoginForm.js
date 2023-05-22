@@ -61,7 +61,8 @@ const LoginForm = () => {
 
   return (
     <form
-      className="container w-50 justify-content-center card py-4 my-3 rounded rounded-5"
+      className="container justify-content-center card py-4 my-3 rounded rounded-5"
+      style={{ width: "40vw" }}
       onSubmit={submitHandler}
     >
       <h3 className="mb-4">Login</h3>
