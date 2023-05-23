@@ -101,18 +101,22 @@ const MainNavigation = () => {
           Logout
         </button>
       )}
-      {authCtx.isLoggedIn && !cartCtx.isCartShown && (
-        <button
-          type="button"
-          className="btn btn-primary btn-md rounded-pill align-items-center"
-          onClick={() => cartCtx.toggleCartShown()}
-        >
-          <span className="h5">Cart</span>
-          <span className="badge rounded-pill text-bg-warning ms-3">
-            {cartCtx.items.length}
-          </span>
-        </button>
-      )}
+      {authCtx.isLoggedIn &&
+        !cartCtx.isCartShown &&
+        (console.log("cart opened: " + JSON.stringify(cartCtx.items)),
+        (
+          <button
+            type="button"
+            className="btn btn-primary btn-md rounded-pill align-items-center"
+            onClick={() => cartCtx.toggleCartShown()}
+          >
+            <span className="h5">Cart</span>
+            <span className="badge rounded-pill text-bg-warning ms-3">
+              {console.log("cart items : ", cartCtx.items)}
+              {cartCtx.items.length}
+            </span>
+          </button>
+        ))}
     </nav>
   );
 };

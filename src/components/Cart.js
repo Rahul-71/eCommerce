@@ -72,8 +72,8 @@ const Cart = () => {
                 <button className="btn btn-success btn-md" disabled>
                   Proceed
                 </button>
-                <span className="h6">
-                  Total Price: {formatPrice(cartCtx.totalPrice)}
+                <span className="h6 text-white fs-6">
+                  Total Price: {formatPrice(cartCtx.totalPrice, "USD")}
                 </span>
               </div>
             </td>

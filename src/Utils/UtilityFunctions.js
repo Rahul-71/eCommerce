@@ -29,20 +29,34 @@ export async function updateCart(state, email) {
           items: state.items,
           totalPrice: state.totalPrice,
         }),
-        headers: {
-          "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
-        },
+        headers: { "Content-Type": "application/json" },
       }
     );
 
     const data = await response.json();
     return data;
-    // if (response.ok) {
-    // } else {
-    //   const data = await response.json();
-    //   return data;
-    // }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function fetchCartItems(email) {
+  console.log(`GETTING products of cart using emailId`);
+  const encodedEmail = btoa(email); // encodeURIComponent(email)
+  console.log("current email: " + email);
+  console.log("current encoded-email: " + encodedEmail);
+
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_FIREBASE_DB}/cart/${encodedEmail}.json`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     throw new Error(error);
   }

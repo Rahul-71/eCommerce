@@ -15,8 +15,6 @@ const StoreItems = ({ productsArr }) => {
 
     // adding item to cart
     cartCtx.addItem(selectedItem);
-    // // adding item to cart using ItemId
-    // cartCtx.addItem(itemId);
   };
 
   return (

@@ -21,11 +21,8 @@ const AuthContextProvider = (props) => {
 
   const logoutHandler = () => {
     setToken(null);
+    setEmail("");
   };
-
-  // const setEmailHandler = (email) => {
-  //   setEmail(email);
-  // };
 
   const contextValue = {
     token: token,
