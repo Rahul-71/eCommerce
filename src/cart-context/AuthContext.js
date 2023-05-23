@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
-import { useNavigate } from "react-router";
 
 export const AuthContext = createContext({
   token: "",
+  setEmailId: "",
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
@@ -10,7 +10,7 @@ export const AuthContext = createContext({
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState("");
-  //   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
 
   const userLoggedIn = !!token;
 
@@ -19,12 +19,16 @@ const AuthContextProvider = (props) => {
   };
 
   const logoutHandler = () => {
-    // navigate("/", { replace: true });
     setToken(null);
+  };
+
+  const setEmailHandler = (email) => {
+    setEmail(email);
   };
 
   const contextValue = {
     token: token,
+    email: email,
     isLoggedIn: userLoggedIn,
     login: loginHandler,
     logout: logoutHandler,

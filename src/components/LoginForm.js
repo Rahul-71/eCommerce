@@ -3,8 +3,6 @@ import React, { useContext, useRef, useState } from "react";
 import { AuthContext } from "../cart-context/AuthContext";
 import { useNavigate } from "react-router";
 
-const API_KEY = "AIzaSyAtJy-XuxWDX8bz7tFXCJo5lcLWQxDqLuw";
-
 const LoginForm = () => {
   const emailInput = useRef("");
   const passwordInput = useRef("");
@@ -20,8 +18,9 @@ const LoginForm = () => {
     const enteredPassword = passwordInput.current.value;
 
     const processRequest = async () => {
+      console.log("API_KEY : " + process.env.REACT_APP_API_KEY);
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -40,6 +39,7 @@ const LoginForm = () => {
         console.log("login/signup successful");
         console.log("JWT token : " + data.idToken);
         authCtx.login(data.idToken);
+        // authCtx.setEmailId(
         console.log(data);
 
         navigate("/store");
