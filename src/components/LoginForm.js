@@ -8,28 +8,41 @@ const LoginForm = () => {
   const passwordInput = useRef("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+    setIsLoading(false);
+  };
+
+  // Resource: https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
   const submitHandler = (event) => {
     event.preventDefault();
     setIsLoading(true);
     const enteredEmail = emailInput.current.value;
     const enteredPassword = passwordInput.current.value;
 
+    let url;
+    if (isLogin) {
+      // login
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`;
+    } else {
+      // signup
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`;
+    }
+
     const processRequest = async () => {
-      const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       setIsLoading(false);
       if (response.ok) {
@@ -38,7 +51,7 @@ const LoginForm = () => {
 
         authCtx.login(data.idToken, enteredEmail);
 
-        navigate("/store");
+        navigate("/store", { replace: true });
       } else {
         // login failure
         const data = await response.json();
@@ -59,7 +72,7 @@ const LoginForm = () => {
       style={{ width: "40vw" }}
       onSubmit={submitHandler}
     >
-      <h3 className="mb-4">Login</h3>
+      <h3 className="mb-4">{isLogin ? "Login" : "Sign Up"}</h3>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
           Email
@@ -84,11 +97,20 @@ const LoginForm = () => {
           required
         />
       </div>
-      {!isLoading && (
-        <button className="btn btn-md btn-success w-25" type="submit">
-          Login
+      <div className="d-flex justify-content-between">
+        {!isLoading && (
+          <button className="btn btn-md btn-success w-25" type="submit">
+            {isLogin ? "Login" : "Sign Up"}
+          </button>
+        )}
+        <button
+          type="button"
+          className="btn w-50 border border-3"
+          onClick={switchAuthModeHandler}
+        >
+          {isLogin ? "Create new account" : "Login with existing account"}
         </button>
-      )}
+      </div>
       {isLoading && (
         <p className="text-center text-dark fs-4">Please Wait...</p>
       )}
