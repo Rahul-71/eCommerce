@@ -38,8 +38,7 @@ const LoginForm = () => {
         const data = await response.json();
         console.log("login/signup successful");
         console.log("JWT token : " + data.idToken);
-        authCtx.login(data.idToken);
-        // authCtx.setEmailId(
+        authCtx.login(data.idToken, enteredEmail);
         console.log(data);
 
         navigate("/store");

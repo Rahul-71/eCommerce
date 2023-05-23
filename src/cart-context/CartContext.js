@@ -1,4 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useContext, useReducer } from "react";
+import { AuthContext } from "./AuthContext";
+import { updateCart } from "../Utils/UtilityFunctions";
 
 export const CartContext = React.createContext({
   items: [],
@@ -27,6 +29,7 @@ const cartReducer = (state, action) => {
   if (action.type === ACTIONS.ADD_ITEM) {
     const existingItem = items.findIndex((item) => item.id === action.item.id);
 
+    let isFailed = false;
     let updatedState = state;
     if (existingItem === -1) {
       const updatedItems = [...items, action.item];
@@ -37,12 +40,26 @@ const cartReducer = (state, action) => {
           Number.parseInt(action.item.price) +
           Number.parseInt(state.totalPrice),
       };
+
+      console.log("posting selected item to server....");
+
+      // save items to cart based on emailId
+      updateCart(updatedState, action.emailId)
+        .then((res) => {
+          console.log("successfully added to server cart");
+          console.log(res);
+          isFailed = false;
+        })
+        .catch((err) => {
+          console.log("Error occured: " + err);
+          isFailed = true;
+        });
     } else {
       updatedState = state;
       window.alert("Already added into the cart");
     }
 
-    return updatedState;
+    return isFailed ? state : updatedState;
   } else if (action.type === ACTIONS.REMOVE_ITEM) {
     const itemToRemoveIndx = items.findIndex((item) => +item.id === +action.id);
     const updatedState = {
@@ -56,7 +73,20 @@ const cartReducer = (state, action) => {
         Number.parseInt(state.items[itemToRemoveIndx].price),
     };
 
-    return updatedState;
+    // update the state to server
+    let isFailed = false;
+    updateCart(updatedState, action.emailId)
+      .then((res) => {
+        console.log("successfully added to server cart");
+        console.log(res);
+        isFailed = false;
+      })
+      .catch((err) => {
+        console.log("Error occured: " + err);
+        isFailed = true;
+      });
+
+    return isFailed ? state : updatedState;
   } else if (action.type === ACTIONS.TOGGLE_CART) {
     const updatedState = { ...state, isCartShown: !state.isCartShown };
     return updatedState;
@@ -66,17 +96,27 @@ const cartReducer = (state, action) => {
 };
 
 const CartContextProvider = ({ children }) => {
+  const authCtx = useContext(AuthContext);
+
   const [cartState, cartActionDispatch] = useReducer(
     cartReducer,
     defaultCartState
   );
 
   const addItemDispatch = (item) => {
-    cartActionDispatch({ type: ACTIONS.ADD_ITEM, item: item });
+    cartActionDispatch({
+      type: ACTIONS.ADD_ITEM,
+      item: item,
+      emailId: authCtx.emailId,
+    });
   };
 
   const removeItemDispatch = (id) => {
-    cartActionDispatch({ type: ACTIONS.REMOVE_ITEM, id: id });
+    cartActionDispatch({
+      type: ACTIONS.REMOVE_ITEM,
+      id: id,
+      emailId: authCtx.emailId,
+    });
   };
 
   const toggleCart = () => {

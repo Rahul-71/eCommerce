@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext({
   token: "",
-  setEmailId: "",
+  emailId: "",
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
@@ -14,21 +14,22 @@ const AuthContextProvider = (props) => {
 
   const userLoggedIn = !!token;
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, emailID) => {
     setToken(token);
+    setEmail(emailID);
   };
 
   const logoutHandler = () => {
     setToken(null);
   };
 
-  const setEmailHandler = (email) => {
-    setEmail(email);
-  };
+  // const setEmailHandler = (email) => {
+  //   setEmail(email);
+  // };
 
   const contextValue = {
     token: token,
-    email: email,
+    emailId: email,
     isLoggedIn: userLoggedIn,
     login: loginHandler,
     logout: logoutHandler,

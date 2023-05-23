@@ -13,6 +13,41 @@ export async function fetchProductById(prodId) {
   return data;
 }
 
+export async function updateCart(state, email) {
+  console.log(`adding products to cart using emailId`);
+  const encodedEmail = btoa(email); // encodeURIComponent(email)
+  console.log("current state: " + JSON.stringify(state));
+  console.log("current email: " + email);
+  console.log("current encoded-email: " + encodedEmail);
+
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_FIREBASE_DB}/cart/${encodedEmail}.json`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          items: state.items,
+          totalPrice: state.totalPrice,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          // "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+
+    const data = await response.json();
+    return data;
+    // if (response.ok) {
+    // } else {
+    //   const data = await response.json();
+    //   return data;
+    // }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export function getNthParent(element, n) {
   let parent = element;
   for (let i = 0; i < n; i++) {
