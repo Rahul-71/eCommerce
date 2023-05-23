@@ -25,9 +25,7 @@ const defaultCartState = async (email = "") => {
   };
 
   if (email !== "") {
-    console.log("email not empty");
     const response = await fetchCartItems(email);
-    console.log("recevied respnse", response);
 
     defaultState = {
       ...defaultState,
@@ -35,9 +33,6 @@ const defaultCartState = async (email = "") => {
       totalPrice: response.totalPrice || 0,
     };
   }
-
-  console.log("default cart state");
-  console.log(defaultState);
 
   return defaultState;
 };
@@ -65,15 +60,9 @@ const cartReducer = (state, action) => {
       const totalPrice =
         Number.parseInt(action.item.price) + Number.parseInt(state.totalPrice);
 
-      console.log("posting selected item to server....");
       updateCart({ items: updatedItems, totalPrice }, action.emailId)
-        .then((res) => {
-          console.log("successfully added to server cart");
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log("Error occurred: " + err);
-        });
+        .then((res) => {})
+        .catch((err) => {});
 
       return { ...state, items: updatedItems, totalPrice };
 
@@ -93,15 +82,9 @@ const cartReducer = (state, action) => {
           Number.parseInt(state.items[itemToRemoveIndx].price),
       };
 
-      console.log("updating cart on the server....");
       updateCart(updatedState, action.emailId)
-        .then((res) => {
-          console.log("successfully updated server cart");
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log("Error occurred: " + err);
-        });
+        .then((res) => {})
+        .catch((err) => {});
 
       return updatedState;
 
@@ -123,7 +106,6 @@ const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchInitialState = async () => {
-      console.log("useEffect cart items calls");
       try {
         // Use destructuring to get the emailId from authCtx
         const { emailId } = authCtx;
@@ -136,7 +118,6 @@ const CartContextProvider = ({ children }) => {
         );
       } catch (error) {
         // Use a template literal to log the error
-        console.log(`error while fetching the cart items: ${error}`);
       }
     };
 

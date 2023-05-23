@@ -6,19 +6,14 @@ export const formatPrice = (val, currency = "INR") => {
 };
 
 export async function fetchProductById(prodId) {
-  console.log(`fetching data based on id: ${prodId}`);
   const res = await fetch(`https://fakestoreapi.com/products/${prodId}`);
   const data = await res.json();
-  console.log(data);
+
   return data;
 }
 
 export async function updateCart(state, email) {
-  console.log(`adding products to cart using emailId`);
   const encodedEmail = btoa(email); // encodeURIComponent(email)
-  console.log("current state: " + JSON.stringify(state));
-  console.log("current email: " + email);
-  console.log("current encoded-email: " + encodedEmail);
 
   try {
     const response = await fetch(
@@ -41,10 +36,7 @@ export async function updateCart(state, email) {
 }
 
 export async function fetchCartItems(email) {
-  console.log(`GETTING products of cart using emailId`);
   const encodedEmail = btoa(email); // encodeURIComponent(email)
-  console.log("current email: " + email);
-  console.log("current encoded-email: " + encodedEmail);
 
   try {
     const response = await fetch(

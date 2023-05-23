@@ -12,19 +12,14 @@ const ProductDetails = () => {
   const cartCtx = useContext(CartContext);
 
   const [product, setProduct] = useState({});
-  // console.log("about to fetch product : " + params.productId);
 
   useEffect(() => {
-    // console.log("inside useEffect");
-
     fetchProductById(params.productId).then((prodResponse) => {
-      // console.log("data recevied");
       setProduct(prodResponse);
     });
   }, []);
 
   const addItemToCart = (e) => {
-    // console.log("selectedItem", product);
     cartCtx.addItem(product);
   };
 

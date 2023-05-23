@@ -18,7 +18,6 @@ const LoginForm = () => {
     const enteredPassword = passwordInput.current.value;
 
     const processRequest = async () => {
-      console.log("API_KEY : " + process.env.REACT_APP_API_KEY);
       const response = await fetch(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
         {
@@ -36,10 +35,8 @@ const LoginForm = () => {
       if (response.ok) {
         // login success
         const data = await response.json();
-        console.log("login/signup successful");
-        console.log("JWT token : " + data.idToken);
+
         authCtx.login(data.idToken, enteredEmail);
-        console.log(data);
 
         navigate("/store");
       } else {
@@ -50,8 +47,6 @@ const LoginForm = () => {
           errorMessage = data.error.message;
         }
         alert(errorMessage);
-        console.log("login failed: ");
-        console.log(data);
       }
     };
 

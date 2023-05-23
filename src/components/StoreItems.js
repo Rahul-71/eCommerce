@@ -9,9 +9,8 @@ const StoreItems = ({ productsArr }) => {
   const addItemToCart = (e) => {
     e.preventDefault();
     const itemId = getNthParent(e.target, 3).getAttribute("id");
-    console.log("inside addItemToCart : " + itemId);
+
     const selectedItem = productsArr.filter((item) => +item.id === +itemId)[0];
-    console.log("selectedItem", selectedItem);
 
     // adding item to cart
     cartCtx.addItem(selectedItem);
