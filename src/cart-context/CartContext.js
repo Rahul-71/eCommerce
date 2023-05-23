@@ -17,26 +17,6 @@ const defCartState = {
   isCartShown: false,
 };
 
-const defaultCartState = async (email = "") => {
-  let defaultState = {
-    items: [],
-    totalPrice: 0,
-    isCartShown: false,
-  };
-
-  if (email !== "") {
-    const response = await fetchCartItems(email);
-
-    defaultState = {
-      ...defaultState,
-      items: response.items || [],
-      totalPrice: response.totalPrice || 0,
-    };
-  }
-
-  return defaultState;
-};
-
 const ACTIONS = {
   ADD_ITEM: "addItem",
   REMOVE_ITEM: "removeItem",
@@ -117,7 +97,9 @@ const CartContextProvider = ({ children }) => {
           })
         );
       } catch (error) {
-        // Use a template literal to log the error
+        console.log(
+          `error occured while fetching cart items : ${error.message}`
+        );
       }
     };
 

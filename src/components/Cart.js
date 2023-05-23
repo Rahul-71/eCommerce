@@ -41,7 +41,7 @@ const Cart = () => {
                 />
                 <p className="h6">{ele.title}</p>
               </td>
-              <td className="h5">{formatPrice(ele.price)}</td>
+              <td className="h5">{formatPrice(ele.price, "USD")}</td>
               <td id={ele.id} className="col">
                 <input
                   type="text"
