@@ -17,7 +17,7 @@ const ProductDetails = () => {
     fetchProductById(params.productId).then((prodResponse) => {
       setProduct(prodResponse);
     });
-  }, []);
+  });
 
   const addItemToCart = (e) => {
     cartCtx.addItem(product);

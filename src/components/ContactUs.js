@@ -12,7 +12,7 @@ const ContactUs = () => {
 
   const phoneValidation = phone.length > 0 && phone.length !== 10;
 
-  let msg = "";
+  // let msg = "";
 
   const saveHandler = async (e) => {
     e.preventDefault();

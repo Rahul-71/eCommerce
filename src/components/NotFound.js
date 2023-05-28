@@ -10,7 +10,7 @@ const NotFound = () => {
       console.log("is shown");
       cartCtx.toggleCartShown();
     }
-  }, []);
+  });
 
   return (
     <>
